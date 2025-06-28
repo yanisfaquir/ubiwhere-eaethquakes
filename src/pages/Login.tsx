@@ -24,7 +24,7 @@ export default function Login(){
 
             const { access_token, refresh_token } = response.data;
             setTokens(access_token, refresh_token);
-            navigate("/"); 
+            navigate("/dashboard"); 
             console.log(response);
         } catch (err) {
             setError("Falha no login. Verifique as credenciais.")

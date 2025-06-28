@@ -7,9 +7,10 @@ export default function AppRouter(){
     return (
         <BrowserRouter>
             <Routes>
+                
                 <Route path="login" element={<Login/>}/>
                 <Route
-                    path="/"
+                    path="dashboard"
                     element={
                     <PrivateRoute>
                         <Dashboard />
