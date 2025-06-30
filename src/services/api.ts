@@ -1,8 +1,7 @@
 import axios from "axios";
-import { useAuthStore } from "../store/authStore";
 
 const api = axios.create({
-  baseURL: "https://recruitment.ubiwhere.com/api",
+  baseURL: "/api",
 });
 
 // Interceptor para renovar token automaticamente (exemplo base)
@@ -36,12 +35,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("access_token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+
+
 
 export default api;

@@ -26,6 +26,8 @@ export default function Login(){
             setTokens(access_token, refresh_token);
             navigate("/dashboard"); 
             console.log(response);
+            localStorage.setItem("token", access_token);
+
         } catch (err) {
             setError("Falha no login. Verifique as credenciais.")
         }

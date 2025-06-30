@@ -8,21 +8,17 @@ export default function Dashboard() {
 
   const handleLogout = () => {
     console.log("🔴 Logout iniciado...");
-
     logout();
-    
     console.log("✅ Tokens removidos do Zustand e localStorage:");
-    console.log("accessToken:", localStorage.getItem("access_token")); // deve ser null
-    console.log("refreshToken:", localStorage.getItem("refresh_token")); // deve ser null
-
-    
+    console.log("accessToken:", localStorage.getItem("access_token"));
+    console.log("refreshToken:", localStorage.getItem("refresh_token"));
     navigate("/login");
   };
 
   return (
-    <div className="p-4">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Dashboard</h1>
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4">
+      {/* Botão logout flutuante */}
+      <div className="absolute top-4 right-4 z-50">
         <button
           onClick={handleLogout}
           className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
@@ -31,11 +27,8 @@ export default function Dashboard() {
         </button>
       </div>
 
-      <div className="p-4">
-        <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
-          <Map />
-      </div>
-      
+      {/* O mapa vai estar centrado numa janela */}
+      <Map />
     </div>
   );
 }

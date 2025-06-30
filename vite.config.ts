@@ -9,9 +9,9 @@ export default defineConfig({
       "/api": {
         target: "https://recruitment.ubiwhere.com",
         changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api/, "/api"), 
+        secure: true,
+        rewrite: (path) => path.replace(/^\/api/, "/api"),
       },
     },
-  },
+  }
 });

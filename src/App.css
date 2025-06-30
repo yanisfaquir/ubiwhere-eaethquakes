@@ -5,6 +5,28 @@
   text-align: center;
 }
 
+@keyframes pulse {
+  0% {
+    r: 0;
+    opacity: 0.8;
+  }
+  50% {
+    r: 15;
+    opacity: 0.3;
+  }
+  100% {
+    r: 0;
+    opacity: 0;
+  }
+}
+
+.circle-pulse {
+  animation: pulse 2s infinite;
+  fill: red;
+  stroke: red;
+  stroke-width: 2;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
