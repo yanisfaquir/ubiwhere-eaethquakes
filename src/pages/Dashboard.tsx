@@ -1,5 +1,6 @@
 import { useAuthStore } from "../store/authStore";
 import { useNavigate } from "react-router-dom";
+import Map from "../components/Map";
 
 export default function Dashboard() {
   const logout = useAuthStore((state) => state.logout);
@@ -30,8 +31,11 @@ export default function Dashboard() {
         </button>
       </div>
 
-      {/* Aqui irá o mapa e a lista de sismos futuramente */}
-      <p>Conteúdo da dashboard aqui.</p>
+      <div className="p-4">
+        <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
+          <Map />
+      </div>
+      
     </div>
   );
 }
