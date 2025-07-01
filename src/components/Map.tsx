@@ -1,8 +1,9 @@
-import { MapContainer, TileLayer, CircleMarker, Popup, useMapEvent } from "react-leaflet";
+import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 import type { LatLngExpression } from "leaflet";
 import api from "../services/api";
+import styles from "../styles/Map.module.css"; 
 
 interface Earthquake {
   id: string;
@@ -37,16 +38,18 @@ export default function Map() {
             end_date: today,
           },
         });
+        console.log("Earthquakes", response.data); 
 
         const filtered = response.data.filter((eq: Earthquake) => {
           const locationMatch = searchLocation
             ? eq.location.toLowerCase().includes(searchLocation.toLowerCase())
             : true;
+          // console.log("Filter", locationMatch); 
           return locationMatch;
+        
         });
 
         setEarthquakes(filtered);
-        console.log(response.data)
       } catch (error) {
         console.error("Erro ao buscar sismos:", error);
       }
@@ -56,66 +59,40 @@ export default function Map() {
   }, [searchLocation]);
 
   return (
-    <div
-      style={{
-        maxWidth: "1000px",
-        margin: "2rem auto",
-        border: "1px solid #ccc",
-        borderRadius: "8px",
-        overflow: "hidden",
-        position: "relative",
-        height: "700px",
-        display: "flex"
-      }}
-    >
+    <div className={styles.container}>
       {/* Painel lateral de detalhes */}
       {selectedEarthquake && (
-        <div
-          style={{
-            width: "300px",
-            padding: "1rem",
-            background: "#f9f9f9",
-            borderRight: "1px solid #ccc",
-            overflowY: "auto"
-          }}
-        >
+        <div className={styles.detailsPanel}>
           <h3>Detalhes do Sismo</h3>
           <p><strong>Local:</strong> {selectedEarthquake.location}</p>
           <p><strong>Data:</strong> {new Date(selectedEarthquake.timestamp).toLocaleString()}</p>
           <p><strong>Latitude:</strong> {selectedEarthquake.coordinates.lat}</p>
           <p><strong>Longitude:</strong> {selectedEarthquake.coordinates.long}</p>
-          <button onClick={() => setSelectedEarthquake(null)} style={{ marginTop: "1rem" }}>Fechar</button>
+          <button onClick={() => setSelectedEarthquake(null)} style={{ marginTop: "1rem" }}>
+            Fechar
+          </button>
         </div>
       )}
 
-      <div style={{ flex: 1, position: "relative" }}>
+      <div className={styles.mapWrapper}>
         {/* Barra de filtros */}
-        <div
-          style={{
-            background: "white",
-            padding: "1rem",
-            borderBottom: "1px solid #ccc",
-            display: "flex",
-            gap: "1rem",
-            alignItems: "center",
-          }}
-        >
+        <div className={styles.filterBar}>
           <input
             type="text"
             value={searchLocation}
             onChange={(e) => setSearchLocation(e.target.value)}
             placeholder="Localização"
-            style={{ padding: "0.5rem", flex: 1 }}
+            className={styles.filterInput}
           />
         </div>
 
         {/* Leaflet Map */}
-        <div style={{ height: "calc(100% - 80px)", position: "relative" }}>
+        <div className={styles.mapContainer}>
           <MapContainer
             center={center}
             zoom={2}
-            style={{ height: "100%", width: "100%" }}
-            maxBounds={[[ -85, -180 ], [ 85, 180 ]]}
+            style={{ height: "100%", width: "100%", zIndex: 1 }}
+            maxBounds={[[-85, -180], [85, 180]]}
             maxBoundsViscosity={1.0}
           >
             <TileLayer
@@ -148,78 +125,26 @@ export default function Map() {
             ))}
           </MapContainer>
 
-          {/* Legenda - Fixada ao canto superior direito */}
-          <div
-            style={{
-              position: "absolute",
-              top: "1rem",
-              right: "1rem",
-              background: "white",
-              padding: "1rem",
-              borderRadius: "0.5rem",
-              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.2)",
-              zIndex: 1000,
-              fontSize: "0.875rem",
-              width: "200px",
-            }}
-          >
-            <strong style={{ display: "block", marginBottom: "0.5rem" }}>
-              Sismos por categoria:
-            </strong>
-            <div style={{ display: "flex", alignItems: "center", marginBottom: "0.25rem" }}>
-              <span
-                style={{
-                  display: "inline-block",
-                  width: "1rem",
-                  height: "1rem",
-                  borderRadius: "50%",
-                  marginRight: "0.5rem",
-                  backgroundColor: "#008000",
-                }}
-              />
+          {/* Legenda */}
+          <div className={styles.legend}>
+            <strong>Sismos por categoria:</strong>
+            <div className={styles.legendItem}>
+              <span className={styles.colorDot} style={{ backgroundColor: "#008000" }} />
               Últimas 24h
             </div>
-            <div style={{ display: "flex", alignItems: "center", marginBottom: "0.25rem" }}>
-              <span
-                style={{
-                  display: "inline-block",
-                  width: "1rem",
-                  height: "1rem",
-                  borderRadius: "50%",
-                  marginRight: "0.5rem",
-                  backgroundColor: "#FFFF00",
-                }}
-              />
+            <div className={styles.legendItem}>
+              <span className={styles.colorDot} style={{ backgroundColor: "#FFFF00" }} />
               Entre 2 e 7 dias
             </div>
-            <div style={{ display: "flex", alignItems: "center", marginBottom: "0.25rem" }}>
-              <span
-                style={{
-                  display: "inline-block",
-                  width: "1rem",
-                  height: "1rem",
-                  borderRadius: "50%",
-                  marginRight: "0.5rem",
-                  backgroundColor: "#FFA500",
-                }}
-              />
+            <div className={styles.legendItem}>
+              <span className={styles.colorDot} style={{ backgroundColor: "#FFA500" }} />
               Entre 8 e 30 dias
             </div>
           </div>
 
-          {/* Nenhum dado */}
+          {/* Sem dados */}
           {earthquakes.length === 0 && (
-            <div
-              style={{
-                position: "absolute",
-                top: "1rem",
-                left: "1rem",
-                background: "white",
-                padding: "0.75rem",
-                borderRadius: "0.5rem",
-                zIndex: 1000,
-              }}
-            >
+            <div className={styles.noData}>
               Nenhum sismo encontrado no período selecionado.
             </div>
           )}

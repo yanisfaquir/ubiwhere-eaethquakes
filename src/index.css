@@ -1,5 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+/* index.css */
 html, body, #root {
-  height: 100%;
   margin: 0;
   padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+
+body {
+  @apply bg-no-repeat bg-cover bg-center min-h-screen;
+  background-color: #ffffff;
+  color: #ffff;
 }
