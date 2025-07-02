@@ -2,7 +2,6 @@
 
 A responsive, secure and interactive earthquake visualization platform built with **React**, **TypeScript**, **Leaflet**, and **Zustand**. Designed for Ubiwhere's recruitment exercise.
 
-![Preview](./preview.png)
 
 ---
 
