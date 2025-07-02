@@ -1,0 +1,84 @@
+.container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  display: flex;
+}
+
+.detailsPanel {
+  width: 300px;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-right: 1px solid #ffffff;
+  overflow-y: auto;
+  color: black;
+}
+
+.mapWrapper {
+  flex: 1;
+  position: relative;
+}
+
+.filterBar {
+  background: #1c57fd;
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.filterInput {
+  padding: 0.5rem;
+  flex: 1;
+}
+
+.mapContainer {
+  height: calc(100% - 80px);
+  position: relative;
+  z-index: 1;
+}
+
+.legend {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 400;
+  font-size: 0.875rem;
+  width: 200px;
+  color: black;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25rem;
+  color: black;
+}
+
+.colorDot {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.noData {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: white;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  z-index: 1000;
+  color: black;
+}
