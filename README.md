@@ -21,7 +21,7 @@ A responsive, secure and interactive earthquake visualization platform built wit
 | Type       | Stack                                 |
 |------------|----------------------------------------|
 | Frontend   | React 18 + TypeScript                  |
-| Styling    | Tailwind CSS (via `@tailwindcss/postcss`) |
+| Styling    |  CSS Modules |
 | Map        | Leaflet + React Leaflet                |
 | Auth       | Zustand store + localStorage + Axios interceptors |
 | Routing    | React Router v7                        |
